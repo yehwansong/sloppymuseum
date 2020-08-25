@@ -17,6 +17,7 @@ var data = [
             </div>\
             <div class='artwork_des'>\
             QR코드로 접속해 전시 유형 성격테스트를 하면 자신의 타입에 맞는 전시 해설을 유투브를 통해 들을 수 있어요. 유형별로 작가, 큐레이터, 컬렉터, 미술관 귀신이 나타나 《전혀 예술적인, 엉성한 미술관》 전시와 작품에 대한 맞춤형 이야기를 들려줍니다. 궁금하지만 물어보지 못했던 다양한 질문이나 의견을 온라인 댓글로 남기면, 실제로 존재하는지 알 수 없는 영상 속의 인물은 댓글과 새로운 영상으로 답변을 업데이트합니다. <br><br>\
+            <a href='https://esh-museum.space/fantasy' style='text-decoration:underline'> 테스트 하러가기 <br></a>\
             * 이 작품은 미술관 곳곳에 있고 그 수가 점점 늘어납니다. \
             </div>\
             <div class='artwork_title info_6'>\
