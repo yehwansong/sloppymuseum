@@ -116,6 +116,33 @@ function updateFingerImg(userId, pos) {
     }); 
 }
 
+
+    $('.arrow_up').on('touchstart',function(){
+  // e.preventDefault();
+        down = true
+        movedot(currentX,currentY,'up')
+    })
+    $('.arrow_down').on('touchstart',function(){
+  // e.preventDefault();
+        down = true
+        movedot(currentX,currentY,'down')
+    })
+    $('.arrow_left').on('touchstart',function(){
+  // e.preventDefault();
+        down = true
+        movedot(currentX,currentY,'left')
+    })
+    $('.arrow_right').on('touchstart',function(){
+  // e.preventDefault();
+        down = true
+        movedot(currentX,currentY,'right')
+    })
+    $('.arrow').on('touchend', function(){
+        down = false
+            clearTimeout(continue_move)
+    })
+
+
 function onTouchHandler(snapshot) {
     let data = snapshot.val()
 
@@ -123,22 +150,12 @@ function onTouchHandler(snapshot) {
         Object.keys(gFingers).forEach(userId => {
             removeFingerImg(userId);
         })
-
         gFingers = {};
         return
     }
 
     for(let [key, value] of Object.entries(data)) {
     // old finger stuck in db, ignore.
-        if((new Date().getTime()) - value.now > (60 * 1000)) {
-            continue;
-        }
-
-    // don't care about own updates
-        if(!isMobile && value.hash == randomnumber){
-                console.log('--------------')
-                updateFingerImg(key, value)
-        }
         gFingers[key] = value;
     }
 
@@ -166,15 +183,13 @@ function init() {
   // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged(function(user) {
-        console.log('---------')
-        console.log(user)
     if (user) {
-      gUserId = user.uid;
-      gIsInit = true;
-        console.log('---------2')
+    gUserId = user.uid;
+    gIsInit = true;
 
-      firebase.database().ref('users/' + gUserId).set({
-    username: gUserId
+    firebase.database().ref('users/' + gUserId).set({
+        username: gUserId,
+        pos:'hell'
   }, function(error) {
     if (error) {
       console.log('The write failed...')
