@@ -432,13 +432,13 @@ var about = [
 ]
 var gdata = [
 '<div class="f_b gdata_title">기억의 방</div>\
-<div class="f_s">\
+<div>\
 <img class="gbimage" src ="new/single-g.png">\
 미술관에서 다양한 교육 프로그램을 만들었던 사람들의 경험을 살펴봅니다. \
 <기억의 방>에는 이번 프로젝트의 바탕이 된 서울시립미술관 프로그램의 책자, 자료들이 놓여있어요. \
 미술관과 매개자, 관객 간의 소통을 통해 나와 모두를 위한 환대의 순간을 만들어 가려 했던 과정을 살펴볼 수 있습니다. \
-미술관의 프로젝트에 참여했던 사람들의 생각과 경험이 이곳에서 다시 연결되어서 펼쳐집니다.<br><br><br>\
-<img class="gbimage" src ="new/img-04.png">\
+미술관의 프로젝트에 참여했던 사람들의 생각과 경험이 이곳에서 다시 연결되어서 펼쳐집니다.<br><br><br></div>\
+<div class="f_s"><img class="gbimage" src ="new/img-04.png">\
 <span class="underline">『미술관에 놓인 배움의 식탁: 예술가의 런치박스 레시피』 (2013-2019)</span><br>\
 2013년부터 2019년까지 53명(팀)의 작가가 진행한 «예술가의 런치박스»의 64개 프로그램의 구체적인 내용을 정리한 책입니다. 각각의 프로그램과 관련된 미술관의 전시, 소장품을 소개함으로써 미술관 교육의 특성이 드러날 수 있도록 기획되었습니다. «예술가의 런치박스»가 관객을 무엇과 어떻게 매개하는지, 어떤 수행적 효과를 가지는지에 따라 각 프로그램을 크게 다섯 개의 모델로 분류합니다. 예술교육 프로그램 사례와 작가의 에세이, 프로그램과 연결되는 전시를 서술한 파트, 사진 아카이브 등을 통해 단일적 관람의 방식에서 벗어나 참여자들이 예술을 감각할 수 있도록 구성한 다양한 방법을 살펴볼 수 있습니다.<br><br><br>\
 <img class="gbimage" src ="new/img-05.png">\
@@ -796,11 +796,11 @@ $(document).ready(function(){
                     currentX = newx
                     currentY = newy
                     floor = 1
-            $('.title_7_1').show()
-            $('.title_7_2').show()
-            $('.single_sm').show()
-            $('.single_gd').hide()
-            $('.title_s_1').hide()
+            $('.title_7_1').hide()
+            $('.title_7_2').hide()
+            $('.single_sm').hide()
+            $('.single_gd').show()
+            $('.title_s_1').show()
                     $('.floorpopup').html('1층')
                     $('.floorpopup').css({'opacity':'0.5'})
                     $('.roomoverlay_2').css({'opacity':'0'})
@@ -822,11 +822,11 @@ $(document).ready(function(){
                     currentX = newx
                     currentY = newy
                     floor = 2
-            $('.title_7_1').hide()
-            $('.title_7_2').hide()
-            $('.single_sm').hide()
-            $('.single_gd').show()
-            $('.title_s_1').show()
+            $('.title_7_1').show()
+            $('.title_7_2').show()
+            $('.single_sm').show()
+            $('.single_gd').hide()
+            $('.title_s_1').hide()
                     $('.floorpopup').html('2층')
                     $('.floorpopup').css({'opacity':'0.5'})
                     $('.roomoverlay_1').css({'opacity':'0'})
