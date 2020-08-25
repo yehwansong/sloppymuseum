@@ -877,11 +877,14 @@ $(document).ready(function(){
 for (var i = worklist.length - 1; i >= 0; i--) {
 	$('.room').append('<div class="title title_'+worklist[i][0]+' popup_'+worklist[i][3]+'" style="left:'+worklist[i][2]*10+'vw;top:'+worklist[i][1]*10+'vw;"><span></span><div>')
             if(floor == 2){
+                console.log('2-----------')
                         $('.single_gd').hide()
                         $('.title_s_1').hide()
                         $('.title_7_1').show()
                         $('.title_7_2').show()
-                        $('.single_sm').show()}else{
+                        $('.single_sm').show()
+                    }else{
+                console.log('1-----------')
                         $('.single_gd').show()
                         $('.title_s_1').show()
                         $('.title_7_1').hide()
