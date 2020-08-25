@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<head>
+<script src="https://use.fontawesome.com/8af6c1b3d2.js"></script>
+  <meta charset="UTF-8">
+<meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' 
+/>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<!-- <script src="src/door1.js"></script>
+<script src="src/jquery.easing.1.3.js"></script>
+<script src="src/jquery.booklet.latest.min.js"></script>
+<link href="src/door1.css" type="text/css" rel="stylesheet"/> -->
+
+<script>
+	$(document).ready(function(){
+		setTimeout(function(){
+			$('.cover').fadeOut(300)
+			prepage_step()
+		},2000)
+	function prepage_step(){
+		$('.door_1').addClass('soon_4')
+		$('.door_2').addClass('soon_2')
+		$('.door_3').addClass('soon_3')
+		$('.door_4').addClass('soon_1')
+				setTimeout(function(){
+					$('.letter').addClass('show_page')
+					$('.soon_4').css({'background-size':'100% 100%'})
+				},1000)
+	}
+	$('.door_wrapper_1').click(function(){
+		$('.prepage_innerwrapper').css({'transform-origin':'left top'})
+		setTimeout(function(){
+			$('.prepage').addClass('door_open_1')
+			$('.letter').removeClass('show_page')
+			$.get("door1.html", function(data){
+			    $('#content').html(data);
+			});
+		},300)
+	})
+	$('.door_wrapper_2').click(function(){
+		$('.prepage_innerwrapper').css({'transform-origin':'right top'})
+		setTimeout(function(){
+			$('.prepage').addClass('door_open_2')
+			$('.letter').removeClass('show_page')
+			setTimeout(function(){
+				window.location.href = "door2.html";
+			},500)
+		},300)
+	})
+	$('.door_wrapper_3').click(function(){
+		$('.prepage_innerwrapper').css({'transform-origin':'left bottom'})
+		setTimeout(function(){
+			$('.prepage').addClass('door_open_3')
+			$('.letter').removeClass('show_page')
+			setTimeout(function(){
+				window.location.href = "door3.html";
+			},500)
+		},300)
+	})
+	$('.door_wrapper_4').click(function(){
+		$('.prepage_innerwrapper').css({'transform-origin':'right bottom'})
+		setTimeout(function(){
+			$('.prepage').addClass('door_open_4')
+			$('.letter').removeClass('show_page')
+			setTimeout(function(){
+				window.location.href = "door4.html";
+			},500)
+		},300)
+	})
+
+	
+	})
+</script>
+<style type="text/css">
+	*{margin:0;
+		padding:0;
+		color:white;
+		font-family:sans-serif;
+		font-size: 8vw}
+	html,body{
+		background-color: black;
+		width: 100vw;
+		height: 100%
+	}
+	.page{
+		width: 100vw;
+		height: 100%;
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		transition: 0.5s
+	}
+	.sm_font{
+		font-size: 4.5vw
+	}
+	.text_wrapper{
+		position: absolute;
+		top: 45%;
+		transform: translateY(-50%) translateX(-50%);
+		text-align: center;
+		min-width: 80vw;
+		left: 50%
+	}
+
+	.door_wrapper, .door, .letter{
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center bottom;
+	}
+	.door_wrapper{
+width: 50%;
+height: 50%;
+position: absolute;
+background-image: url('img/bg-13.png');
+background-size: 100% 50%;
+	}
+	.door_wrapper_1{
+border-right: 0.3vw solid white;
+border-bottom: 0.3vw solid white;
+		left: 0;
+		top: 0;
+z-index: 100;
+	}
+	.door_wrapper_2{
+border-bottom: 0.3vw solid white;
+		left: 50%;
+		top: 0;
+	}
+	.door_wrapper_3{
+border-right: 0.3vw solid white;
+		left: 0;
+		top: 50%;
+z-index: 100;
+	}
+	.door_wrapper_4{
+		left: 50%;
+		top: 50%;
+	}
+	.door{
+position: absolute;
+z-index: 10;
+		background-size: auto 100%;
+left: 0;
+top: 50%;
+width: 100%;
+height: 0%;
+transition: 1.5s;
+		background-color:rgba(0,0,0,1);
+border-bottom: 0.3vw solid rgb(69, 69, 69);
+transform: translateY(-50%);
+	}
+	.prepage_innerwrapper .door_1{background-image: url('img/door1.png');}
+	.prepage_innerwrapper .door_2{background-image: url('img/door2.png');}
+	.prepage_innerwrapper .door_3{background-image: url('img/door3.png');}
+	.prepage_innerwrapper .door_4{background-image: url('img/door4-color.png');}
+
+	.soon_1{height: 100%}
+	.soon_2{height: 100%}
+	.soon_3{height: 100%}
+	.soon_4{height: 100%}
+	.nobg{
+		background-color:rgba(0,0,0,0);
+	}
+
+	.letter{
+		width: 100%;
+		height: 10vw;
+		position: absolute;
+		left: 0;
+		top: 2.5vw;
+		z-index: 100;
+		opacity: 0;
+		transition: 0.5s
+	}
+	.letter_1{
+background-image: url('img/letter-17.png');
+top: 50%;
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+	.letter_2{
+		background-image: url('img/letter-15.png');
+	}
+	.letter_3{
+		background-image: url('img/letter-16.png');
+	}
+	.letter_4{
+		background-image: url('img/letter-14.png');
+	}
+	.door_wrapper img{
+		position: relative;
+		left: 10%;
+		top: 0;
+		width: 80%;
+		z-index: 0;
+		opacity: 0
+	}
+	.show_page{
+		opacity: 1 !important;
+		pointer-events: auto;
+	}
+	.prepage_innerwrapper{
+		width: 100%;
+		height: 100%;
+	}
+	.prepage.door_open_1,.prepage_innerwrapper{
+		transition:0.5s;
+	}
+	.prepage.door_open_1 .prepage_innerwrapper{
+		transform: scale(2);
+		transform-origin: left top;
+	}
+	.prepage.door_open_2,.prepage_innerwrapper{
+		transition:0.5s;
+	}
+	.prepage.door_open_2 .prepage_innerwrapper{
+		transform: scale(2);
+		transform-origin: right top;
+	}
+	.prepage.door_open_3,.prepage_innerwrapper{
+		transition:0.5s;
+	}
+	.prepage.door_open_3 .prepage_innerwrapper{
+		transform: scale(2);
+		transform-origin: left bottom;
+	}
+	.prepage.door_open_4,.prepage_innerwrapper{
+		transition:0.5s;
+	}
+	.prepage.door_open_4 .prepage_innerwrapper{
+		transform: scale(2);
+		transform-origin: right bottom;
+	}
+	.door_wrapper{
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+	.loading{
+    font-size: 2vh;
+    text-transform: uppercase;
+    position: fixed;
+    left: 50%;
+    top: 48%;
+    text-align: center;
+    transform: translateX(-50%);
+z-index: 1;
+		  	animation: blink-animation 1s steps(5, start) infinite;
+		  	-webkit-animation: blink-animation 1s steps(5, start) infinite;
+		}
+
+		@keyframes blink-animation {
+		  to {
+		    visibility: hidden;
+		  }
+		}
+		@-webkit-keyframes blink-animation {
+		  to {
+		    visibility: hidden;
+		  }
+		}
+		.cover{
+width: 100%;
+height: 100%;
+position: fixed;
+left: 0;
+top: 0;
+background-image: url('img/cover-01.png');
+background-size: 80vw auto;
+background-position: center 25vh;
+z-index: 1000000;
+background-repeat: no-repeat;
+background-color: black;
+		}
+@media (min-aspect-ratio: 1/1) {
+		.cover{
+width: 65vh;
+height: 100%;
+background-size: contain;
+left: 50%;
+transform: translateX(-50%);
+}
+	.show_page {
+	    overflow: hidden;
+	    width: 55vh;
+	    opacity: 1 !important;
+	    pointer-events: auto;
+    left: calc(50vw - 27.5vh);
+	}
+.door_wrapper {
+    overflow: hidden;
+    }
+    .letter_1 {
+    left: 50% !important;
+    width: 100% !important;
+    transform: translateX(-50%);
+    height: 5vh;
+	}
+    .door{
+    border-bottom: 0.1vh solid rgb(69, 69, 69);}
+    .door_1{
+    border-bottom: 0vh solid rgb(69, 69, 69) !important;
+    }
+    .page.prepage{
+    	border-left: 0.3vw solid white;
+    	border-right: 0.3vw solid white;
+    }
+}
+</style>
+<body>
+	<div class="cover"></div>
+	<div class="page prepage show_page">
+		<div class="prepage_innerwrapper">
+			<div class="door_wrapper door_wrapper_1">
+				<div class="letter letter_1"></div>
+				<div class="door door_1"></div>
+			</div>
+			<div class="door_wrapper door_wrapper_2">
+				<div class="letter letter_1"></div>
+				<div class="door door_2"></div>
+			</div>
+			<div class="door_wrapper door_wrapper_3">
+				<div class="letter letter_1"></div>
+				<div class="door door_3"></div>
+			</div>
+			<div class="door_wrapper door_wrapper_4">
+				<div class="letter letter_1"></div>
+				<div class="door door_4"></div>
+			</div>
+		</div>
+	</div>
+	<div id="content"></div>
+</body>
+</head>

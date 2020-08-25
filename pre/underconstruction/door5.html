@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="viewport" content = "width = device-width, initial-scale = 1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no" />
+		<meta name="apple-mobile-web-app-title" content="onlyWebPro" />
+		<style type="text/css">
+			*{
+			  margin: 0px;
+			  padding:0;
+			}
+            body{
+                width: 100vw;
+                height: 100vh;
+                /*background-image: url('img/door_4_1.JPG');*/
+
+                background-size: cover;
+                background-position: center;
+                background: black
+            }
+            .elem{
+                position: absolute;
+                width: 100vw;
+                height: 100%;
+                left: 0;
+                top: 0
+            }
+            .elem>div{
+                width: 80vw;
+            }
+            canvas{
+                position: fixed;
+            }
+            .door{
+                width: 100vw;
+                position: fixed;
+                top: 0vw;
+                left: 0vw;
+                pointer-events: none;
+                z-index: 10000;
+                transform-origin: center 23%;
+                transition: 0.5s
+            }
+            .door_zoomin{
+
+                transform: scale(1.23);
+            }
+            .reset,.back{
+    display: none;
+position: fixed;
+z-index: 10000000;
+background: black;
+padding: 4vw;
+border-radius: 1vw;
+right: 4vw;
+bottom: 2vw;
+border: 0.5vw solid white;
+box-shadow: 0vw 0vw 1vw black;
+color: white;
+text-decoration: none;
+top: auto;}
+.back{
+    bottom: 12vw;
+}
+.swipe{
+position: fixed;
+z-index: 10000000;
+width: 35vw;
+left: 32.5vw;
+top: 65vw;
+filter: invert();
+animation: bounce 2s 1s infinite;
+    transform: translateY(0) rotate(-45deg);
+    display: none;
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) rotate(-45deg) ;
+  }
+  40% {
+    transform: translateY(12vw) rotate(-45deg) ;
+  }
+  60% {
+    transform: translateY(6vw) rotate(-45deg) ;
+  }
+}
+		</style>
+	</head>
+<body>
+    <img class="door" src="img/door-12-white.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.11.0/matter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+var Engine = Matter.Engine,
+  Render = Matter.Render,
+  World = Matter.World,
+  Bodies = Matter.Bodies,
+        Svg = Matter.Svg,
+        MouseConstraint = Matter.MouseConstraint,
+        Mouse = Matter.Mouse,
+  Body = Matter.Body;
+
+var engine = Engine.create();
+ var w = window.innerWidth
+ var h = window.innerHeight
+var render = Render.create({
+  element: document.body,
+  engine: engine,
+  options: {
+    width: w,
+    height: h,
+            background: 'transparent',
+    wireframes: false
+  }
+});
+
+var topWall = Bodies.rectangle(400, 50, 720, 20, { isStatic: true});
+var leftWall = Bodies.rectangle(50, 210, 20, 300, { isStatic: true});
+var rightWall = Bodies.rectangle(750, 210, 20, 300, { isStatic: true});
+var bottomWall = Bodies.rectangle(400, 350, 720, 20, { isStatic: true});
+
+var ball = Bodies.rectangle(400, 350, 720, 20);
+
+    var wall_1 = Bodies.rectangle(w/2, 0-25, w, 50, { isStatic: true })
+    var wall_2 = Bodies.rectangle(w+25, h/2, 50, h, { isStatic: true })
+    var wall_3 = Bodies.rectangle(0-25, h/2, 50, h, { isStatic: true })
+    var side_wall_1 = Bodies.rectangle(0, 0, w*0.6, w, { isStatic: true,
+    render: {
+         fillStyle: 'black',
+         strokeStyle: 'black',
+         lineWidth: 0
+    } })
+    var side_wall_2 = Bodies.rectangle(w, 0, w*0.6, w, { isStatic: true,
+    render: {
+         fillStyle: 'black',
+         strokeStyle: 'black',
+         lineWidth: 0
+    } })
+    World.add(engine.world, [
+        wall_1, wall_2, wall_3,side_wall_1,side_wall_2
+    ]);
+    Matter.Body.setAngle(side_wall_1, Math.PI/4);
+    Matter.Body.setAngle(side_wall_2, -1*Math.PI/4);
+engine.world.gravity.y = -1;
+World.add(engine.world, ball);
+
+Engine.run(engine);
+
+Render.run(render);
+
+$(document).ready(function(){
+    $('.door').addClass('door_zoomin')
+    setTimeout(function(){
+        $('.swipe').show()
+        $('.reset').show()
+        $('.back').show()
+    },500)
+    $('.elem>div').each(function(){
+        console.log($(this).outerWidth())
+        console.log($(this).outerHeight())
+    }) 
+            var c = document.getElementsByTagName('canvas')[0]
+            c.addEventListener('touchstart', handleTouchStart, false);        
+            c.addEventListener('touchmove', handleTouchMove, false);      
+            c.addEventListener('touchend', handleTouchend, false);
+            var swipe = true
+            var xDown = null;                                                        
+            var yDown = null;
+            var counter = 0
+            function getTouches(evt) {
+              return evt.touches ||             // browser API
+                     evt.originalEvent.touches; // jQuery
+            }                                                     
+
+            function handleTouchStart(evt) {
+                down = true
+                const firstTouch = getTouches(evt)[0];                                      
+                xDown = firstTouch.clientX;                                      
+                yDown = firstTouch.clientY;                                      
+            };                                                
+            var height_array = [60, 45, 45, 45, 0, 60, 60, 75, 75, 0, 60, 45, 60, 60, 0, 45, 45, 60, 45, 0, 45, 60]
+            var unit = w*0.8/230
+            function handleTouchMove(evt) {
+        $('.swipe').hide()
+                if ( ! xDown || ! yDown ) {
+                    return;
+                }
+
+                var xUp = evt.touches[0].clientX;                                    
+                var yUp = evt.touches[0].clientY;
+
+                var xDiff = xDown - xUp;
+                var yDiff = yDown - yUp;
+                counter ++ 
+                if(counter == 19){
+                    counter = 1
+                }
+                console.log(counter)
+                if(yDiff>10 && down && counter<height_array.length && swipe){
+                    if(counter%5 == 0 ){
+                        var rec = Bodies.rectangle(w*(0.4+Math.floor(Math.random()*2)*0.2), h, w*0.5, w*0.333,{
+                                    render: {
+                                        lineWidth: 0,
+                                        sprite: {
+                                            texture: 'door4_img/img_'+counter+'.jpg',
+                                            xScale: 0.4,
+                                            yScale: 0.4
+                                        }
+                                    }}
+                            )
+                    }else{
+                        var rec = Bodies.rectangle(w*(0.4+Math.floor(Math.random()*2)*0.2), h, w*0.8, unit*height_array[counter-1],{
+                                    render: {
+                                        lineWidth: 0,
+                                        sprite: {
+                                            texture: 'door4_img/img_'+counter+'.png',
+                                            xScale: 0.7,
+                                            yScale: 0.7
+                                        }
+                                    }}
+                            )
+                    }
+
+
+                World.add(engine.world, rec)
+                var ran = 1
+                if(counter%2 == 0){
+                    ran = -1
+                }
+                Body.setAngularVelocity( rec, ran*Math.PI/180);
+
+
+
+                    down = false
+                    console.log(counter)
+                }
+                /* reset values */
+                xDown = null;
+                yDown = null;   
+            }
+            $('.reset').click(function(){
+                        Body.setPosition(wall_1, { x:100*w, y: -25});
+                            Body.setPosition(side_wall_1, { x: 100*w, y:0})
+                            Body.setPosition(side_wall_2, { x: 100*w, y:0})
+                        swipe = false
+                        setTimeout(function(){
+                            Body.setPosition(wall_1, { x:w/2, y: -25});
+                            Body.setPosition(side_wall_1, { x: 0, y:0})
+                            Body.setPosition(side_wall_2, { x: w, y:0})
+                            swipe = true
+                        },3000)
+            })
+            function handleTouchend(){
+                    down = false
+            }
+            function minTwoDigits(n) {
+                return (n < 10 ? '0' : '') + n;
+            }
+            var mouse = Mouse.create(render.canvas),
+                mouseConstraint = MouseConstraint.create(engine, {
+                    mouse: mouse,
+                    constraint: {
+                        stiffness: 0.2,
+                        render: {
+                            visible: false
+                        }
+                    }
+                });
+
+            World.add(engine.world, mouseConstraint);
+}) 
+</script>
+<a src="index.html" class="back">돌아가기</a>
+<div class="reset">다시하기</div>
+<img class="swipe" src="img/swipe.png">
+</body>

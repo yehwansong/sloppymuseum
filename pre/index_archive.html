@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<head>
+<script src="https://use.fontawesome.com/8af6c1b3d2.js"></script>
+  <meta charset="UTF-8">
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		if(window.location.hash) {
+			setTimeout(function(){
+						$('.page_1').removeClass('show_page')
+						$('.page_3').addClass('show_page')
+						page_3_step()
+			},3000)
+		} else {
+			setTimeout(function(){
+				$('.page_1').removeClass('show_page')
+				$('.page_2').addClass('show_page')
+					setTimeout(function(){
+						$('.page_2').removeClass('show_page')
+						$('.page_3').addClass('show_page')
+						page_3_step()
+					},3000)
+			},3000)
+		}
+
+	function page_3_step(){
+		$('.door_1').addClass('soon_4')
+		$('.door_2').addClass('soon_2')
+		$('.door_3').addClass('soon_3')
+		$('.door_4').addClass('soon_1')
+				setTimeout(function(){
+					$('.letter').addClass('show_page')
+					$('.soon_4').css({'background-size':'100% 100%'})
+				},1000)
+	}
+	$('.door_wrapper_1').click(function(){
+		console.log('hey')
+		$('.page_3').addClass('door_open')
+		$('.letter').removeClass('show_page')
+		$(this).append('<img src="img/img.jpg">')
+		$(this).find('.door').addClass('nobg')
+		$(this).find('img').addClass('show_page')
+	})
+	})
+</script>
+<style type="text/css">
+	*{margin:0;
+		padding:0;
+		color:white;
+		font-family:sans-serif;
+		font-size: 8vw}
+	body{
+		background-color: black;
+		width: 100vw;
+		height: 100%
+	}
+	.page{
+		width: 100vw;
+		height: 100%;
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		transition: 0.5s
+	}
+	.sm_font{
+		font-size: 4.5vw
+	}
+	.text_wrapper{
+		position: absolute;
+		top: 45%;
+		transform: translateY(-50%) translateX(-50%);
+		text-align: center;
+		min-width: 80vw;
+		left: 50%
+	}
+
+	.door_wrapper, .door, .letter{
+		background-repeat: no-repeat;
+		background-size: contain;
+		background-position: center bottom;
+	}
+	.door_wrapper{
+width: 50%;
+height: 50%;
+position: absolute;
+background-image: url('img/bg-13.png');
+background-size: 100% 50%;
+	}
+	.door_wrapper_1{
+border-right: 0.3vw solid white;
+border-bottom: 0.3vw solid white;
+		left: 0;
+		top: 0;
+z-index: 10;
+	}
+	.door_wrapper_2{
+border-bottom: 0.3vw solid white;
+		left: 50%;
+		top: 0;
+	}
+	.door_wrapper_3{
+border-right: 0.3vw solid white;
+		left: 0;
+		top: 50%;
+z-index: 10;
+	}
+	.door_wrapper_4{
+		left: 50%;
+		top: 50%;
+	}
+	.door{
+position: absolute;
+z-index: 10;
+		background-size: auto 100%;
+left: 0;
+top: 50%;
+width: 100%;
+height: 0%;
+transition: 1.5s;
+		background-color:rgba(0,0,0,1);
+border-bottom: 0.3vw solid rgb(69, 69, 69);
+transform: translateY(-50%);
+	}
+	.door_1{background-image: url('img/door-09.png');}
+	.door_2{background-image: url('img/door-10.png');}
+	.door_3{background-image: url('img/door-11.png');}
+	.door_4{background-image: url('img/door-12.png');}
+
+	.soon_1{height: 10%}
+	.soon_2{height: 20%}
+	.soon_3{height: 40%}
+	.soon_4{height: 100%}
+	.nobg{
+		background-color:rgba(0,0,0,0);
+	}
+
+	.letter{
+		width: 100%;
+		height: 10vw;
+		position: absolute;
+		left: 0;
+		top: 2.5vw;
+		z-index: 100;
+		opacity: 0;
+		transition: 0.5s
+	}
+	.letter_1{
+background-image: url('img/letter-17.png');
+top: 50%;
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+	.letter_2{
+		background-image: url('img/letter-15.png');
+	}
+	.letter_3{
+		background-image: url('img/letter-16.png');
+	}
+	.letter_4{
+		background-image: url('img/letter-14.png');
+	}
+	.door_wrapper img{
+position: relative;
+left: 10%;
+top: 0;
+width: 80%;
+z-index: 0;
+opacity: 0
+	}
+	.show_page{
+		opacity: 1 !important;
+		pointer-events: auto;
+	}
+	.page_3.door_open,.page_3_innerwrapper{
+		transition:0.5s;
+	}
+	.page_3.door_open{
+		transform-origin: center 25%;
+		transform: scale(1.2);}
+	.page_3_innerwrapper{
+		transform-origin: left top;
+		width: 100%;
+		height: 100%
+	}
+	.page_3.door_open .page_3_innerwrapper{
+		transform: scale(2);
+	}
+	.door_wrapper{
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+</style>
+<body>
+	<div class="page page_1 show_page">
+		<span class="text_wrapper">
+			<span class="sm_font">대기실 프로젝트</span> 
+			<br> 전혀 예술적인 
+			<br> 엉성한 미술관
+			<br>2020.8.25 ~ 10.25.
+			<br>남서울미술관 전층 
+		</span>
+	</div>
+	<div class="page page_2">
+		<span class="text_wrapper">
+		당신에게 미술관은<br>어떤 곳인가요?
+		</span>
+	</div>
+	<div class="page page_3">
+		<div class="page_3_innerwrapper">
+			<div class="door_wrapper door_wrapper_1">
+				<div class="letter letter_1"></div>
+				<div class="door door_1"></div>
+			</div>
+			<div class="door_wrapper door_wrapper_2">
+				<div class="letter letter_2"></div>
+				<div class="door door_2"></div>
+			</div>
+			<div class="door_wrapper door_wrapper_3">
+				<div class="letter letter_3"></div>
+				<div class="door door_3"></div>
+			</div>
+			<div class="door_wrapper door_wrapper_4">
+				<div class="letter letter_4"></div>
+				<div class="door door_4"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</head>
+
+<!-- 1. 추여명 선생님께서 제안하신 대로 첫번째 문 터치 시 들어가자마자 이미지가 파바바박(?) 팝업하는 것으로 생각하고, 이 이미지들을 0번 폴더에 넣었습니다. 
+2. 0-1번 폴더의 이미지는 0번 폴더 이미지가 모두 전개된 후 메인 이미지가 되면 좋겠습니다. 이 이미지를 오른쪽으로 쓸어 넘기면(책처럼) 다음 사진으로 이동합니다. 
+3. 이후 1~3 폴더는 각각 1-1~3-3 폴더와 쌍을 맺습니다. 예환 씨와 얘기했던 것은 1-1, 2-2, 3-3 폴더에 있는 기획서 이미지가 배경사진 위로 팝업처럼 등장해서 읽게끔 하는것이었는데요, 자료를 정리하면서 생각해본 것은 1, 2, 3 폴더의 사진은 위아래로 스크롤 해서 내려보고 1-1, 2-2, 3-3 폴더의 이미지는 각각 1, 2, 3 이 끝난 뒤 등장해 오른쪽에서 왼쪽으로 넘겨보도록 하는 것입니다. 간단히 말하면 사진은 밑으로 쭉쭉 스크롤해서 보도록 하고 글은 책 넘기듯 오른쪽에서 왼쪽으로 스크롤하도록 해서 보기와 읽기를 좀 더 직관적으로 구분할 수 있지 않을까 생각해 보았습니다. 어떤 인터페이스가 더 좋을지는 예환씨의 결정에 따르겠습니다. 
+4. outro는 0번 폴더의 이미지가 등장하는 방식과 유사하게 자동으로 넘어가도 좋을 것 같은데 속도가 outro보다 많이 천천히 진행되면 어떨까 생각해보았습니다. 
+
+일정
+첫번째 사전 페이지는 8월 4일 메일링 서비스와 함께 퍼블릭 오픈으로 생각하고 있습니다. 
+금요일까지 1차 시안 보내주시면 주말동안 조정 후 최종 확정하면 좋겠습니다. 
+
+감사합니다
+이한범 드림 -->

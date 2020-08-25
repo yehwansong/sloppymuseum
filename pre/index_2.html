@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<head>
+<script src="https://use.fontawesome.com/8af6c1b3d2.js"></script>
+<meta charset="UTF-8">
+<link href="src/jquery.booklet.latest.css" type="text/css" rel="stylesheet" media="screen, projection, tv" />
+  
+<meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' 
+/>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		var h = window.innerHeight;
+		var w = window.innerWidth;
+		var firstbookA = true
+		var firstbookB = true
+		var firstbookC = true
+
+		setTimeout(function(){
+					$('.page_1').removeClass('show_page')
+					$('.page_2').addClass('show_page')
+					// addbigdoor()
+					removebigdoor()
+		},3000)
+		$('.page_2').click(function(){
+			// loadpage_1()
+			$('.content_wrapper').show()
+			$('.page_2').addClass('pagerotate')
+		})
+		var addbigdoor_counter = 1
+		function addbigdoor(){
+				if(addbigdoor_counter<12){
+					setTimeout(function(){
+						addbigdoor_counter++
+						addbigdoor()
+					},300)
+				}
+				var door_array = ['door-10','door-11','door-12','door-09']
+				$('.page_2 .door_'+ (addbigdoor_counter)).addClass('bigdoor')
+				$('.page_2 .door_'+ (addbigdoor_counter) + ' .innerdoor').css({'background-image':'url(img/'+door_array[Math.floor(Math.random() * 4)]+'.png)'})
+				$('.page_2 .door_'+ (addbigdoor_counter)).css({'z-index':0})
+				$('.page_2 .door_'+ (addbigdoor_counter)).css({'z-index':addbigdoor_counter})
+				$('.pers').css({'z-index':addbigdoor_counter-1})
+		}
+		var removebigdoor_counter = 1
+		function removebigdoor(){
+						$('.content_wrapper').fadeOut(5000)
+			if(removebigdoor_counter == 11){
+						$('.page_1').addClass('show_page')
+						$('.page_3 .pers').fadeOut(2000)
+					}
+					setTimeout(function(){
+						removebigdoor_counter++
+						removebigdoor()
+					},1000)
+				if(removebigdoor_counter<12){
+					setTimeout(function(){
+						removebigdoor_counter++
+						removebigdoor()
+					},3000)
+				}
+				var door_array = ['door-10','door-11','door-12','door-09']
+				$('.page_3 .door_'+ (removebigdoor_counter)).removeClass('bigdoor')
+				$('.page_3 .door_'+ (removebigdoor_counter)).css({'z-index':13-removebigdoor_counter})
+				$('.pers').css({'z-index':0})
+		}
+		var currentpage = [0,0,0]
+		var maxpage = [12,14,14]
+		var currentbook = 0
+
+		document.addEventListener('touchstart', handleTouchStart, false);        
+		document.addEventListener('touchmove', handleTouchMove, false);
+
+		var xDown = null;                                                        
+		var yDown = null;
+
+		function getTouches(evt) {
+		  return evt.touches ||             // browser API
+		         evt.originalEvent.touches; // jQuery
+		}                                                     
+
+		function handleTouchStart(evt) {
+		    const firstTouch = getTouches(evt)[0];                                      
+		    xDown = firstTouch.clientX;                                      
+		    yDown = firstTouch.clientY;                                      
+		};                                                
+
+		function handleTouchMove(evt) {
+		    if ( ! xDown || ! yDown ) {
+		        return;
+		    }
+
+		    var xUp = evt.touches[0].clientX;                                    
+		    var yUp = evt.touches[0].clientY;
+
+		    var xDiff = xDown - xUp;
+		    var yDiff = yDown - yUp;
+
+		    if ( Math.abs( xDiff ) > Math.abs( yDiff )) {
+                $('body').css({'overflow':'hidden'})
+                console.log('hey')
+		        if ( xDiff > 0 ) {
+		            console.log( 'left swipe ' )
+		            if(currentbook>0 && currentpage[currentbook-1]<maxpage[currentbook-1]-1){
+		            	currentpage[currentbook-1] = currentpage[currentbook-1]+1
+		            	$('#book_'+currentbook).css({'margin-left':-100*currentpage[currentbook-1]+'vw'})
+		            }
+		            console.log( currentpage[currentbook-1])
+	    		if(currentbook == 1){$(window).scrollTop( $('.content_1_1').outerHeight() - (h-1.5*w));
+					firstbookA = false}
+	    		if(currentbook == 2){$(window).scrollTop( $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight() - (h-1.5*w));
+					firstbookB = false}
+	    		if(currentbook == 3){$(window).scrollTop( $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()+$('.content_2_2').outerHeight()+$('.content_3_1').outerHeight() - (h-1.5*w));
+					firstbookC = false}
+
+		        } else {
+		            console.log( 'right swipe' )
+		            if(currentbook>0 && currentpage[currentbook-1]>0){
+		            	currentpage[currentbook-1] = currentpage[currentbook-1]-1
+		            	$('#book_'+currentbook).css({'margin-left':-100*currentpage[currentbook-1]+'vw'})
+		            }
+		            console.log( currentpage[currentbook-1])
+		        }         
+		    }else if(Math.abs( yDiff )>10){ 
+                document.body.style.overflowY = "scroll";    
+		    }
+		    var counter_1 = 0
+		    var counter_2 = 0
+		    var counter_3 = 0
+		$(window).scroll(function (event) {
+		    var scroll = $(window).scrollTop();
+		    if(scroll > $('.content_1_1').outerHeight()-0.5*h
+		    && scroll < $('.content_1_1').outerHeight() + $('.content_1_2').outerHeight()-0.5*h){
+		    	currentbook = 1
+		    		console.log(counter_1)
+		    	counter_1++
+		    	if(counter_1<10 && firstbookA){
+		    		$(window).scrollTop($('.content_1_1').outerHeight() - (h-1.5*w));
+		    	}else{
+					firstbookA = false
+		    	}   
+                loadpage_2()
+
+
+
+		    }else if(scroll > $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()-0.5*h
+		     && scroll < $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()+$('.content_2_2').outerHeight()-0.5*h){
+		    	currentbook = 2
+		    	counter_2++
+		    	if(counter_2<10 && firstbookB){
+		    		$(window).scrollTop($('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight() - (h-1.5*w));
+		    	}else{
+					firstbookB = false
+		    	}
+				loadpage_3()
+
+
+
+		    }else if(scroll > $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()
+		    	+$('.content_2_2').outerHeight()+$('.content_3_1').outerHeight()-0.5*h
+		     && scroll < $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()+$('.content_2_2').outerHeight()+$('.content_3_1').outerHeight()+$('.content_3_2').outerHeight()-0.5*h){
+		    	currentbook = 3
+		    	counter_3++
+		    	if(counter_3<10 && firstbookC){
+		    		$(window).scrollTop($('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()+$('.content_2_2').outerHeight()+$('.content_3_1').outerHeight() - (h-1.5*w));
+		    	}else{
+					firstbookC = false
+		    	}
+
+
+		    }else if(scroll > $('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()
+		    	+$('.content_2_2').outerHeight()+$('.content_3_1').outerHeight()+$('.content_3_2').outerHeight()-0.1*h){
+		    		$(window).scrollTop($('.content_1_1').outerHeight()+$('.content_1_2').outerHeight()+$('.content_2_1').outerHeight()+$('.content_2_2').outerHeight()+$('.content_3_1').outerHeight()+$('.content_3_2').outerHeight());
+						// $('.page_3').addClass('show_page')
+						// $('.page_2').removeClass('show_page')
+						// removebigdoor()
+		    }else{
+		    	currentbook = 0
+		    }
+		});
+		    /* reset values */
+		    xDown = null;
+		    yDown = null;                                             
+		};
+
+		function loadpage_1(){
+			console.log($('.content_1_1').is(':empty'))
+			if( $('.content_1_1').is(':empty') ) {
+				$('.content_1_1').append('\
+				<img src="content/1/img1.jpg">\
+				<img src="content/1/img2.jpg">\
+				<img src="content/1/img3.jpg">\
+				<img src="content/1/img4.jpg">\
+				<img src="content/1/img5.jpg">\
+				')
+				$('.content_1_2').append('\
+				<div id="book_1">\
+				    <div class="book book_1_2"></div>\
+				    <div class="book book_1_3"></div>\
+				    <div class="book book_1_4"></div>\
+				    <div class="book book_1_5"></div>\
+				    <div class="book book_1_6"></div>\
+				    <div class="book book_1_7"></div>\
+				    <div class="book book_1_8"></div>\
+				    <div class="book book_1_9"></div>\
+				    <div class="book book_1_10"></div>\
+				    <div class="book book_1_11"></div>\
+				    <div class="book book_1_12"></div>\
+				    <div class="book book_1_13"></div>\
+				</div>\
+				')
+			}
+		}
+		function loadpage_2(){
+			if( $('.content_2_1').is(':empty') ) {
+				$('.content_2_1').append('\
+				<img src="content/2/img1.jpg">\
+				<img src="content/2/img2.jpg">\
+				<img src="content/2/img3.jpg">\
+				<img src="content/2/img4.jpg">\
+				<img src="content/2/img5.jpg">\
+				<img src="content/2/img6.jpg">\
+				<img src="content/2/img7.jpg">\
+				<img src="content/2/img8.jpg">\
+				<img src="content/2/img9.jpg">\
+				<img src="content/2/img10.jpg">\
+				')
+				$('.content_2_2').append('\
+				<div id="book_2">\
+				    <div class="book book_2_2"></div>\
+				    <div class="book book_2_3"></div>\
+				    <div class="book book_2_4"></div>\
+				    <div class="book book_2_5"></div>\
+				    <div class="book book_2_6"></div>\
+				    <div class="book book_2_7"></div>\
+				    <div class="book book_2_8"></div>\
+				    <div class="book book_2_9"></div>\
+				    <div class="book book_2_10"></div>\
+				    <div class="book book_2_11"></div>\
+				    <div class="book book_2_12"></div>\
+				    <div class="book book_2_13"></div>\
+				    <div class="book book_2_14"></div>\
+				    <div class="book book_2_15"></div>\
+				</div>\
+				')
+			}
+		}
+		function loadpage_3(){
+			if( $('.content_3_1').is(':empty') ) {
+				$('.content_3_1').append('\
+				<img src="content/3/img1.jpg">\
+				<img src="content/3/img2.jpg">\
+				<img src="content/3/img3.jpg">\
+				<img src="content/3/img4.jpg">\
+				<img src="content/3/img5.jpg">\
+				<img src="content/3/img6.jpg">\
+				<img src="content/3/img7.jpg">\
+				<img src="content/3/img8.jpg">\
+				')
+				$('.content_3_2').append('\
+				<div id="book_3">\
+				    <div class="book book_3_2"></div>\
+				    <div class="book book_3_3"></div>\
+				    <div class="book book_3_4"></div>\
+				    <div class="book book_3_5"></div>\
+				    <div class="book book_3_6"></div>\
+				    <div class="book book_3_7"></div>\
+				    <div class="book book_3_8"></div>\
+				    <div class="book book_3_9"></div>\
+				    <div class="book book_3_10"></div>\
+				    <div class="book book_3_11"></div>\
+				    <div class="book book_3_12"></div>\
+				    <div class="book book_3_13"></div>\
+				    <div class="book book_3_14"></div>\
+				    <div class="book book_3_14"></div>\
+				    <div class="book book_3_14"></div>\
+				    <div class="book book_3_15"></div>\
+				</div>\
+				')
+			}
+		}
+	})
+</script>
+<script src="src/jquery.easing.1.3.js"></script>
+<script src="src/jquery.booklet.latest.min.js"></script>
+<style type="text/css">
+	*{	margin:0;
+		padding:0;
+		color:white;
+		font-family:sans-serif;
+		font-size: 8vw
+	}
+	body{
+		background-color: black;
+		width: 100vw;
+		height: 100%
+	}
+	.page{
+		width: 100vw;
+		height: 100%;
+		opacity: 0;
+		pointer-events: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		transition: 0.5s
+	}
+	.sm_font{
+		font-size: 4.5vw
+	}
+	.text_wrapper{
+		position: absolute;
+		top: 45%;
+		transform: translateY(-50%) translateX(-50%);
+		text-align: center;
+		min-width: 80vw;
+		left: 50%
+	}
+	.show_page{
+		opacity: 1 !important;
+		pointer-events: auto;
+	}
+	.door{
+		width: 100vw;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform: scale(0);
+		transform-origin: center 80%;
+		transition: 0s
+	}
+	.innerimg,
+	.innerdoor{
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		position: absolute;
+		left: 0;
+		top: 0
+	}
+	.cover .innerimg{
+		background-position: top !important;
+		background-size: contain !important
+	}
+	.cover {
+		background-color:#dead4c;
+	}
+	.bigdoor{
+		transform: scale(2);
+		transition: 3s transform
+	}
+	.innerdoor{
+		z-index: 10;
+		position: absolute;
+	}
+	.page_3 .innerimg{
+		opacity: 1
+	}
+	.page_3 .bigdoor{
+		transform: scale(2);
+	}
+	.page_3 .bigdoor .innerimg{
+		opacity: 0;
+		transition: 1s
+	}
+	.page_3 .door{
+		transition: 9s transform
+	}
+	.bigdoor.cover{
+		transform: scale(1) !important;
+		transition: 2s transform
+	}
+	.cover .innerdoor{
+		background-image: none!important
+	}
+	.page_3{
+		opacity: 0;
+		z-index: 10000000000000000;
+		pointer-events: none;
+	}
+	.pagerotate .door{
+		display: none
+	}
+	.pagerotate .cover{
+		display: block;
+	}
+	.pagerotate{
+z-index: 100000;
+		margin-left: -125vw;
+		transition: 1;
+box-shadow: 0vh 0vh 2vh black;
+	}
+
+	.content_wrapper{
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		clear: both;
+		z-index: 10;
+		display: none;
+	}
+	.content_1_1,
+	.content_2_1,
+	.content_3_1{
+		display: table;
+	}
+	.content_1_1 img,
+	.content_2_1 img,
+	.content_3_1 img{
+		width: 100vw;
+		float: left;
+		position: relative;
+	}
+	.content_1_2,
+	.content_2_2,
+	.content_3_2{
+		overflow: hidden;
+		width: 100vw;
+		left: 0;
+		height: 150vw;
+	}
+.content_0{
+	height: 100vh;
+		width: 100vw;
+}
+	#book_1>div,#book_2>div,#book_3>div{
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		float: left;
+		transition: 0.3s margin-left;
+		width: 100vw;
+		height: 100%
+	}
+	#book_1,#book_2,#book_3{ 
+		transition: 0.3s;
+		position: relative; 
+		left: 0;
+		height: 150vw;
+	}
+	#book_1{width: 1400vw;
+		background-image: url(content/1/img1.jpg);
+		background-size: cover;
+	}
+	#book_2{width: 1600vw;
+		background-image: url(content/2/img1.jpg);}
+	#book_3{width: 1600vw;
+		background-image: url(content/3/img1.jpg);}
+	.book{
+		transform: scale(0.92);
+		box-shadow:0vh 0vh 2vh rgba(0, 0, 0, 0.54)
+	}
+	#book_1 .book:nth-child(2n-1),
+	#book_2 .book:nth-child(2n-1),
+	#book_3 .book:nth-child(2n-1){
+		transform-origin: right;
+	}
+	#book_1 .book:nth-child(2n),
+	#book_2 .book:nth-child(2n),
+	#book_3 .book:nth-child(2n){
+		transform-origin: left;
+	}
+.book_1_1 {background-image: url(content/1-1/img1.jpg);}
+.book_1_2 {background-image: url(content/1-1/img2.jpg);}
+.book_1_3 {background-image: url(content/1-1/img3.jpg);}
+.book_1_4 {background-image: url(content/1-1/img4.jpg);}
+.book_1_5 {background-image: url(content/1-1/img5.jpg);}
+.book_1_6 {background-image: url(content/1-1/img6.jpg);}
+.book_1_7 {background-image: url(content/1-1/img7.jpg);}
+.book_1_8 {background-image: url(content/1-1/img8.jpg);}
+.book_1_9 {background-image: url(content/1-1/img9.jpg);}
+.book_1_10{background-image: url(content/1-1/img10.jpg);}
+.book_1_11{background-image: url(content/1-1/img11.jpg);}
+.book_1_12{background-image: url(content/1-1/img12.jpg);}
+.book_1_13{background-image: url(content/1-1/img13.jpg);}
+.book_1_14{background-image: url(content/1-1/img14.jpg);}
+.book_2_1 {background-image: url(content/2-2/img1.jpg);}
+.book_2_2 {background-image: url(content/2-2/img2.jpg);}
+.book_2_3 {background-image: url(content/2-2/img3.jpg);}
+.book_2_4 {background-image: url(content/2-2/img4.jpg);}
+.book_2_5 {background-image: url(content/2-2/img5.jpg);}
+.book_2_6 {background-image: url(content/2-2/img6.jpg);}
+.book_2_7 {background-image: url(content/2-2/img7.jpg);}
+.book_2_8 {background-image: url(content/2-2/img8.jpg);}
+.book_2_9 {background-image: url(content/2-2/img9.jpg);}
+.book_2_10{background-image: url(content/2-2/img10.jpg);}
+.book_2_11{background-image: url(content/2-2/img11.jpg);}
+.book_2_12{background-image: url(content/2-2/img12.jpg);}
+.book_2_13{background-image: url(content/2-2/img13.jpg);}
+.book_2_14{background-image: url(content/2-2/img14.jpg);}
+.book_2_15{background-image: url(content/2-2/img15.jpg);}
+.book_2_16{background-image: url(content/2-2/img16.jpg);}
+.book_3_1 {background-image: url(content/3-3/img1.jpg);}
+.book_3_2 {background-image: url(content/3-3/img2.jpg);}
+.book_3_3 {background-image: url(content/3-3/img3.jpg);}
+.book_3_4 {background-image: url(content/3-3/img4.jpg);}
+.book_3_5 {background-image: url(content/3-3/img5.jpg);}
+.book_3_6 {background-image: url(content/3-3/img6.jpg);}
+.book_3_7 {background-image: url(content/3-3/img7.jpg);}
+.book_3_8 {background-image: url(content/3-3/img8.jpg);}
+.book_3_9 {background-image: url(content/3-3/img9.jpg);}
+.book_3_10{background-image: url(content/3-3/img10.jpg);}
+.book_3_11{background-image: url(content/3-3/img11.jpg);}
+.book_3_12{background-image: url(content/3-3/img12.jpg);}
+.book_3_13{background-image: url(content/3-3/img13.jpg);}
+.book_3_14{background-image: url(content/3-3/img14.jpg);}
+.book_3_15{background-image: url(content/3-3/img15.jpg);}
+.book_3_16{background-image: url(content/3-3/img16.jpg);}
+.pers{
+background-image: url('img/door-13.png');
+height: 20%;
+top: 80%;
+z-index: 11;
+transform: scale(1);
+background-size: 100% 100%;}
+.page_3  .innerimg{
+	opacity: 1;
+	transition: 1s;
+  transition-delay: 1s;
+
+}
+.page_3 .bigdoor .innerimg{
+	opacity: 0;
+
+}
+</style>
+</style>
+<body>
+	<div class="page page_1 show_page">
+		<span class="text_wrapper">
+			<span class="sm_font">대기실 프로젝트</span> 
+			<br> 전혀 예술적인 
+			<br> 엉성한 미술관
+			<br>2020.8.25 ~ 10.25.
+			<br>남서울미술관 전층 
+		</span>
+	</div>
+	<div class="page page_2">
+			<div class="door pers" style="background-image:url('img/door-13.png')"></div>
+			<div class="door door_1 "><div class="innerdoor innerdoor_1"></div><div class="innerimg" style="background-image:url('content/0/img1.jpg')"> </div></div>
+			<div class="door door_2 "><div class="innerdoor innerdoor_2"></div><div class="innerimg" style="background-image:url('content/0/img2.jpg')"> </div></div>
+			<div class="door door_3 "><div class="innerdoor innerdoor_3"></div><div class="innerimg" style="background-image:url('content/0/img3.jpg')"> </div></div>
+			<div class="door door_4 "><div class="innerdoor innerdoor_4"></div><div class="innerimg" style="background-image:url('content/0/img4.jpg')"> </div></div>
+			<div class="door door_5 "><div class="innerdoor innerdoor_5"></div><div class="innerimg" style="background-image:url('content/0/img5.jpg')"> </div></div>
+			<div class="door door_6 "><div class="innerdoor innerdoor_6"></div><div class="innerimg" style="background-image:url('content/0/img6.jpg')"> </div></div>
+			<div class="door door_7 "><div class="innerdoor innerdoor_7"></div><div class="innerimg" style="background-image:url('content/0/img7.jpg')"> </div></div>
+			<div class="door door_8 "><div class="innerdoor innerdoor_8"></div><div class="innerimg" style="background-image:url('content/0/img8.jpg')"> </div></div>
+			<div class="door door_9 "><div class="innerdoor innerdoor_9"></div><div class="innerimg" style="background-image:url('content/0/img9.jpg')"> </div></div>
+			<div class="door door_10"><div class="innerdoor innerdoor_10"></div><div class="innerimg" style="background-image:url('content/0/img10.jpg')"></div></div>
+			<div class="door door_11 cover"><div class="innerdoor"></div><div class="innerimg" style="background-image:url('content/0-1/img.jpg')"></div></div>
+	</div>
+	<div class="content_wrapper">
+		<div class="content content_1_1">
+				<img src="content/1/img1.jpg">
+				<img src="content/1/img2.jpg">
+				<img src="content/1/img3.jpg">
+				<img src="content/1/img4.jpg">
+				<img src="content/1/img5.jpg">
+		</div>
+		<div id="section0" class="snap content content_1_2">
+				<div id="book_1">
+				    <div class="book book_1_2"></div>
+				    <div class="book book_1_3"></div>
+				    <div class="book book_1_4"></div>
+				    <div class="book book_1_5"></div>
+				    <div class="book book_1_6"></div>
+				    <div class="book book_1_7"></div>
+				    <div class="book book_1_8"></div>
+				    <div class="book book_1_9"></div>
+				    <div class="book book_1_10"></div>
+				    <div class="book book_1_11"></div>
+				    <div class="book book_1_12"></div>
+				    <div class="book book_1_13"></div>
+				</div>
+			</div>
+		<div class="content content_2_1"></div>
+		<div id="section1" class="snap content content_2_2"></div>
+		<div class="content content_3_1"></div>
+		<div id="section2" class="snap content content_3_2"></div>
+		<div class="snap content content_0">
+			<div class="door door_1 "><div class="innerdoor innerdoor_2" style="background-image: url(img/door-11.png)"></div></div></div>
+	</div>
+	<div class="page page_3">
+			<div class="door pers" style="background-image:url('img/door-13.png')"></div>
+			<div class="door bigdoor door_1 "  style="z-index: 11"><div class="innerdoor innerdoor_1"></div><div class="innerimg" style="background-image:url('content/outro/img6.jpg')"> </div></div>
+			<div class="door bigdoor door_2 "  style="z-index: 10"><div class="innerdoor innerdoor_2"></div><div class="innerimg" style="background-image:url('content/outro/img1.jpg')"> </div></div>
+			<div class="door bigdoor door_3 "  style="z-index: 9"><div class="innerdoor innerdoor_3"></div><div class="innerimg" style="background-image:url('content/outro/img2.jpg')"> </div></div>
+			<div class="door bigdoor door_4 "  style="z-index: 8"><div class="innerdoor innerdoor_4"></div><div class="innerimg" style="background-image:url('content/outro/img3.jpg')"> </div></div>
+			<div class="door bigdoor door_5 "  style="z-index: 7"><div class="innerdoor innerdoor_5"></div><div class="innerimg" style="background-image:url('content/outro/img4.jpg')"> </div></div>
+			<div class="door bigdoor door_6 "  style="z-index: 6"><div class="innerdoor innerdoor_6"></div><div class="innerimg" style="background-image:url('content/outro/img5.jpg')"> </div></div>
+			<div class="door bigdoor door_7 "  style="z-index: 5"><div class="innerdoor innerdoor_7"></div><div class="innerimg" style="background-image:url('content/outro/img6.jpg')"> </div></div>
+			<div class="door bigdoor door_8 "  style="z-index: 4"><div class="innerdoor innerdoor_8"></div><div class="innerimg" style="background-image:url('content/outro/img1.jpg')"> </div></div>
+			<div class="door bigdoor door_9 "  style="z-index: 3"><div class="innerdoor innerdoor_9"></div><div class="innerimg" style="background-image:url('content/outro/img2.jpg')"> </div></div>
+			<div class="door bigdoor door_10"  style="z-index: 2"><div class="innerdoor innerdoor_10"></div><div class="innerimg" style="background-image:url('content/outro/img3.jpg')"></div></div>
+	</div>
+</body>
+</head>
+<!-- 1. 추여명 선생님께서 제안하신 대로 첫번째 문 터치 시 들어가자마자 이미지가 파바바박(?) 팝업하는 것으로 생각하고, 이 이미지들을 0번 폴더에 넣었습니다. 
+2. 0-1번 폴더의 이미지는 0번 폴더 이미지가 모두 전개된 후 메인 이미지가 되면 좋겠습니다. 이 이미지를 오른쪽으로 쓸어 넘기면(책처럼) 다음 사진으로 이동합니다. 
+3. 이후 1~3 폴더는 각각 1-1~3-3 폴더와 쌍을 맺습니다. 예환 씨와 얘기했던 것은 1-1, 2-2, 3-3 폴더에 있는 기획서 이미지가 배경사진 위로 팝업처럼 등장해서 읽게끔 하는것이었는데요, 자료를 정리하면서 생각해본 것은 1, 2, 3 폴더의 사진은 위아래로 스크롤 해서 내려보고 1-1, 2-2, 3-3 폴더의 이미지는 각각 1, 2, 3 이 끝난 뒤 등장해 오른쪽에서 왼쪽으로 넘겨보도록 하는 것입니다. 간단히 말하면 사진은 밑으로 쭉쭉 스크롤해서 보도록 하고 글은 책 넘기듯 오른쪽에서 왼쪽으로 스크롤하도록 해서 보기와 읽기를 좀 더 직관적으로 구분할 수 있지 않을까 생각해 보았습니다. 어떤 인터페이스가 더 좋을지는 예환씨의 결정에 따르겠습니다. 
+4. outro는 0번 폴더의 이미지가 등장하는 방식과 유사하게 자동으로 넘어가도 좋을 것 같은데 속도가 outro보다 많이 천천히 진행되면 어떨까 생각해보았습니다. 
+
+일정
+첫번째 사전 페이지는 8월 4일 메일링 서비스와 함께 퍼블릭 오픈으로 생각하고 있습니다. 
+금요일까지 1차 시안 보내주시면 주말동안 조정 후 최종 확정하면 좋겠습니다. 
+
+감사합니다
+이한범 드림 -->

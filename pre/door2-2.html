@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+<script src="https://use.fontawesome.com/8af6c1b3d2.js"></script>
+<meta charset="UTF-8">
+<link href="src/jquery.booklet.latest.css" type="text/css" rel="stylesheet" media="screen, projection, tv" />
+<link href="door2.css" type="text/css" rel="stylesheet"/>
+  
+<meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' 
+/>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script src="src/jquery.waitforimages.js"></script>
+<script src="src/door2_contents.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var counter = 0
+		var looptimeout
+		$('body').scroll(function(){
+			$('.bubble').each(function(){
+				console.log($(this).offset().top)
+				if($(this).offset().top<window.innerHeight*0.98){
+					$(this).addClass('showbubble')
+				}else{
+					$(this).removeClass('showbubble')
+				}
+			})
+		});
+		for (var i = content_json[0].length - 1; i >= 0; i--) {
+			$('.content_wrapper').append('<div class="bubble_wrapper bubble_wrapper_'+ content_json[0][i][0]+'"><div class="bubble bubble_'+content_json[0][i][0]+'">'+content_json[0][i][2]+'</div></div>')
+		}
+		for (var i = content_json[1].length - 1; i >= 0; i--) {
+			$('.content_wrapper').append('<div class="bubble_wrapper bubble_wrapper_'+ content_json[1][i][0]+'"><div class="bubble bubble_'+content_json[1][i][0]+'">'+content_json[1][i][2]+'</div></div>')
+		}
+		for (var i = content_json[content_json.length-1].length - 1; i >= 0; i--) {
+			$('.content_wrapper').append('<div class="bubble_wrapper bubble_wrapper_'+ content_json[2][i][0]+'"><div class="bubble bubble_'+content_json[2][i][0]+'">'+content_json[2][i][2]+'</div></div>')
+		}
+	})
+</script>
+</head>
+<body id="content" style="overflow: scroll;">
+	<div class="content_wrapper">
+	</div>
+</body>
+</head>

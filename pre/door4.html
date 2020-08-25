@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<head>
+<script src="https://use.fontawesome.com/8af6c1b3d2.js"></script>
+<meta charset="UTF-8">
+<link href="src/jquery.booklet.latest.css" type="text/css" rel="stylesheet" media="screen, projection, tv" />
+<link href="door4.css" type="text/css" rel="stylesheet"/>
+
+<meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' 
+/>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script src="src/jquery.waitforimages.js"></script>
+<script src="src/door2_contents.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var loop
+			var counter_2 = 0
+			var counter_3 = 0
+			var counter_4 = 0
+		$('.button').bind('touchstart mousedown', function(e){
+			$('.click').hide()
+			$(this).addClass('pressed')
+			$('.button').removeClass('button_ani')
+			$('.answer').hide()
+			var selected = $(this).attr('class').split('button_')[1].split(' ')[0]
+			$('.answer_'+selected).show()
+			if(selected)
+			loopplay(selected)
+			if(selected==3){
+				$('.answer_1>.unit:nth-child(2)').addClass('showunit')
+				$('.answer_1>.unit:nth-child(1)').removeClass('showunit')
+			}else{
+			$('.answer_1>.unit:nth-child(1)').addClass('showunit')}
+		})
+		function loopplay(selected){
+			$('.showunit').removeClass('showunit')
+			if(selected==3){
+				$('.answer_1>.unit:nth-child(2)').addClass('showunit')
+				$('.answer_1>.unit:nth-child(1)').removeClass('showunit')
+			}else{
+			$('.answer_1>.unit:nth-child(1)').addClass('showunit')}
+			console.log(selected)
+			if(selected == 2){
+						$('.answer_'+selected).find('.unit').eq(counter_2%$('.answer_'+selected).find('.unit').length).addClass('showunit')
+					}
+			if(selected == 3){
+						$('.answer_'+selected).find('.unit').eq(counter_3%$('.answer_'+selected).find('.unit').length).addClass('showunit')
+			}
+			if(selected == 4){
+						$('.answer_'+selected).find('.unit').eq(counter_4%$('.answer_'+selected).find('.unit').length).addClass('showunit')
+						console.log($('.answer_'+selected).find('.unit').eq(counter_4%$('.answer_'+selected).find('.unit').length))
+			}
+			if(selected == 2){
+				counter_2 ++ 
+			}
+			if(selected == 3){
+				counter_3 ++ 
+			}
+			if(selected == 4){
+				counter_4 ++ 
+			}
+			if(counter_2 < 5 && counter_3 < 5 && counter_4 < 5 ){
+				sec = 600
+			}else{
+				sec = 1500
+			}
+			loop = setTimeout(function(){
+				loopplay(selected)
+			},sec)
+		}
+		$('.button').bind('touchend mouseup', function(e){
+			$('.button').addClass('button_ani')
+						event.preventDefault();
+			clearTimeout(loop)
+			$('.answer').hide()
+			$('.answer_1>.unit:nth-child(1)').addClass('showunit')
+			$('.answer_1>.unit:nth-child(2)').removeClass('showunit')
+			if($('.pressed').length>2){
+				$('.ending').addClass('showunit')
+				$('.answer_1>.unit:nth-child(1)').removeClass('showunit')
+			}
+		})
+		var greenloop
+		var greencounter = 0
+		$('.greenbutton').bind('touchstart mousedown', function(e){
+			$('.click').hide()
+			 greencard_loop()
+		})
+		function greencard_loop(){
+			greencounter++
+			$('.greencard').addClass('greencard_0')
+			console.log($('.greencard_4').length)
+			console.log('.green_'+(greencounter%8+1))
+			$('.greencard').addClass('greencard_0')
+			$('.greencard_1').removeClass('greencard_1')
+			$('.greencard_2').removeClass('greencard_2')
+			$('.greencard_3').removeClass('greencard_3')
+			$('.greencard_4').removeClass('greencard_4')
+			$('.greencard_5').removeClass('greencard_5')
+			$('.greencard_6').removeClass('greencard_6')
+			$('.greencard_7').removeClass('greencard_7')
+			$('.green_'+((greencounter+1)%8+1)).addClass('greencard_7')
+			$('.green_'+((greencounter+2)%8+1)).addClass('greencard_6')
+			$('.green_'+((greencounter+3)%8+1)).addClass('greencard_5')
+			$('.green_'+((greencounter+4)%8+1)).addClass('greencard_4')
+			$('.green_'+((greencounter+5)%8+1)).addClass('greencard_3')
+			$('.green_'+((greencounter+6)%8+1)).addClass('greencard_2')
+			$('.green_'+((greencounter+7)%8+1)).addClass('greencard_1')
+			$('.green_'+((greencounter+8)%8+1)).addClass('greencard_0')
+			greenloop = setTimeout(function(){
+				 greencard_loop()
+			},700)
+		}
+		$('.greenbutton').bind('touchend mouseup', function(e){
+			 clearTimeout(greenloop)
+			 $('.greencard_1').removeClass('greencard_1').addClass('greencard_0')
+			 $('.greencard_2').removeClass('greencard_2').addClass('greencard_0')
+			 $('.greencard_3').removeClass('greencard_3').addClass('greencard_0')
+			 $('.greencard_4').removeClass('greencard_4').addClass('greencard_0')
+			 $('.greencard_5').removeClass('greencard_5').addClass('greencard_0')
+			 $('.greencard_6').removeClass('greencard_6').addClass('greencard_0')
+			 $('.greencard_7').removeClass('greencard_7').addClass('greencard_0')
+		})
+	})
+</script>
+</head>
+<body id="content">
+	<div class="question">
+	</div>
+	<div class="click click_2"></div>
+	<div class="answer answer_1">
+		<div class="unit showunit">여러분들은 미술관하고 일반 대중들을 연결해주는 아주 중요한 역할을 하고 계시잖아요</div>
+		<div class="unit">언제 미술을 좋아하게 되었는지.첫 순에 대해서 나누는 중이였는데 선생님은 혹시 언제가?</div>
+		<div class="unit ending">각자의 맥락에 맞게 도슨트가 되어가는거에요.</div>
+	</div>
+	<div class="answer answer_2">
+		<div class="unit">제 이야기도 하지만  다른 캐릭터가 되서 질문을 던져보라는거죠?</div>
+		
+		
+		<div class="unit">봐도 봐도 도통 아무것도 모르겠는데 작가들은 알고 그린 거예요? 라고 질문할 수도있죠.</div>
+		
+		<div class="unit">이 작품이 중요한지? 왜 걸려있어야 하는지</div>
+		
+		<div class="unit">어디까지 미술관에서 시끄럽게 떠들 수 있는지? </div>
+		
+		<div class="unit">퍼포먼스를 하는 경우 일시적인 것으로 끝나버리는 것에서 허무하거나 공허하지 않을까 </div>
+		
+		<div class="unit">작가 입장에서 말씀드리자면 기금을 지원해서 받아서 하는 경우가 있고 </div>
+		<div class="unit">미술관 자체에서 비용을 주겠다는 방식이 있습니다.</div>
+
+		<div class="unit">대부분 큐레이터가 기획의도를 작성을 하는것같던데, </div>
+		<div class="unit">큐레이터가 알고 작성을 한 것인지 작가의 설명을 바탕으로 짜깁기를 한 것인지 이해를 하고 썼을까? </div>
+		
+		<div class="unit">오히려 기획자가 다른 면을 발견해주고 </div>
+		<div class="unit">새로운 방법으로 가는 경우가 있기 때문에... </div>
+		
+		<div class="unit">작가는 그런 생각을 전혀 안 했는데 끼워 맞추는 것이 아닌가요? 
+		그걸 의도하는 것이 아닐 수도있는데.</div>
+	</div>
+	<div class="answer answer_3">
+		<div class="unit">뒤늦게 입시를 시작하게 돼서 생각보다 그림이 좋더라고요.</div>
+		<div class="unit">그 많은 사람들이 같이 있다고 생각하고 감동을 받고 하는 것에 </div>
+		<div class="unit">나는 전혀 공감하지 못한다는 것에 답답하다는 생각이 들었고. </div>
+		<div class="unit">그러면 공부를 좀 시작해볼까 하고 책을 조금씩 읽고 강의를 듣고 했어요. </div>
+		<div class="unit">저는 생각해보면 미친 듯이 어떤 순간이 좋았다기보다는 </div>
+		<div class="unit">어렸을 때부터 미술관에서 시간을 보내는 일이 많았어요. </div>
+		<div class="unit">가족들과 많이 다녔고, 그런 경험이 저에게는 편안하고 즐거운 경험이었어요. </div>
+		<div class="unit">저는 어렸을 때부터 부모님이 다 일을 하셔서 집에 있는 시간이 많았어요. </div>
+		<div class="unit">그러다 보니까 제 주위를 예쁘게 꾸미는 것에 관심이 많았고, </div>
+		<div class="unit">초등학교 때도 미술활동을 많이 해서 상도 많이 받았고요.</div>
+		<div class="unit">미술에 관심을 갖게 된 것은 너무 몰라서, 답답해서인데, </div>
+		<div class="unit">저는 미술관에서 작품을 보는 것이 저에게는 노동이더라고요. </div>
+		<div class="unit">5-6살때 부터 그림을 그렸으니까 그런 문화도 저에게는 편했고 </div>
+		<div class="unit">내가 관심가지는 미술이 있는곳이고 항상 가던 곳이고 그러니까 남들과도 함께 가고 싶고… </div>
+		<div class="unit">미술관에서 마음이 편해지고 정화가 되요.</div>
+
+		<div class="unit">저는 글로만 역사적인 메시지나 내용을 담을 수 있다고 생각했는데 </div>
+			<div class="unit">피카소의 <게르니카> 작품 안에 모든 역사가 담겨 있는 거예요. </div>
+		<div class="unit">그때 큰 충격을 받아서 그때부터 예술작품도 공부해야겠다  </div>
+		<div class="unit">관심이 생겼고 도슨트로 활동하게 되었어요</div>
+		<div class="unit">생각해보면 부모님이 맞벌이다 보니까 </div>
+		<div class="unit">혼자서 그림을 그리면서 노는 경우가 많았던 것 같아요. </div>
+		<div class="unit">좋아하기도 하고 미술관도 많이 다녔는데 입시를 하게 되면서 </div>
+		<div class="unit">뭔가 빠져나갈 수 없는 길에 들어서게 되었어요</div>
+		<div class="unit">중학교 때는 박수근 작가의 따님인 박인숙 선생님이 저희 미술선생님이셨어요. </div>
+		<div class="unit">그래서 동경? 같은 것이 생겼고요.</div>
+	</div>
+
+	<div class="answer answer_4">
+		<div class="unit">미술관에서 무언가를 하면 보호받는 느낌이지만, 미술관을 벗어나면 다르게 여겨져요. </div>
+		<div class="unit">관람객이 무엇을 경험할지  그리고 뭘 공유하게될지, 미술관 밖에서요. </div>
+		<div class="unit">버스킹도 쓱 보고 지나가고. </div>
+		<div class="unit">예술이 맞는 자리가 있고 맞지 않는 자리가 있을까? 생각을 하게 되네요. </div>
+		<div class="unit"> 분위기는 만들어진다고 생각해요</div>
+		<div class="unit">다양한 질문이랄까요? 어떤 사람도 어떤 부분에서는 전문가인 거잖아요. </div>
+		<div class="unit">그런 식견을 가지고 다양한 시선을 알려주시면 좋을 것 같아요.</div>
+		<div class="unit">미술관에서 나는 어떤 의미일까?</div>
+		<div class="unit">사람들이 작품을 봤을 때 사고의 전환을 얻으면 좋겠다고 생각해요</div>
+	</div>
+
+	<!-- <div class="button button_ani button_1"></div> -->
+	<div class="button button_ani button_2"></div>
+	<div class="button button_ani button_3"></div>
+	<div class="button button_ani button_4"></div>
+	<div class="greenbutton"></div>
+	<img class="greencard green_1 greencard_0" src="lastimg/q_1.jpg">
+	<img class="greencard green_2 greencard_0" src="lastimg/q_2.jpg">
+	<img class="greencard green_3 greencard_0" src="lastimg/q_3.jpg">
+	<img class="greencard green_4 greencard_0" src="lastimg/q_4.jpg">
+	<img class="greencard green_5 greencard_0" src="lastimg/q_5.jpg">
+	<img class="greencard green_6 greencard_0" src="lastimg/q_6.jpg">
+	<img class="greencard green_7 greencard_0" src="lastimg/q_7.jpg">
+	<img class="greencard green_8 greencard_0" src="lastimg/q_9.jpg">
+
+</body>
+</head>

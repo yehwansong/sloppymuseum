@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<head>
+<script src="https://use.fontawesome.com/8af6c1b3d2.js"></script>
+<meta charset="UTF-8">
+<link href="src/jquery.booklet.latest.css" type="text/css" rel="stylesheet" media="screen, projection, tv" />
+  
+<meta 
+     name='viewport' 
+     content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' 
+/>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+<script src="src/jquery.waitforimages.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+				var ran_all = Math.floor(Math.random()*6)+1
+				$('.talk_'+ran_all).show()
+				console.log($('.talk_'+ran_all))
+				setTimeout(function(){
+					$('.talk_'+ran_all).fadeOut(200)
+				},300)
+		var w = window.innerWidth
+		var h = window.innerHeight
+		var current 
+		var orgX
+		var orgY
+		var newX
+		var newY
+		var down = false
+		setInterval(function(){
+			var random = Math.floor(Math.random()*11)+1
+			var random_t = Math.floor(Math.random()*2)
+			var random_x = Math.floor(Math.random()*6)
+			var random_y = Math.floor(Math.random()*12)
+			var cur_left = $('.paper_'+random).offset().left
+			var cur_top = $('.paper_'+random).offset().top
+			console.log(random_t)
+			if(cur_top > 0.7*h){
+				$('.paper_'+random).css({'top' : cur_top + -0.2*h + 'px'})
+			}else if(cur_top < 0.3*h){
+				$('.paper_'+random).css({'top' : cur_top + 0.2*h + 'px'})
+			}else if(random_t>0){
+				$('.paper_'+random).css({'top' : cur_top + -0.2*h + 'px'})
+			}else{
+				$('.paper_'+random).css({'top' : cur_top + 0.2*h + 'px'})
+			}
+		}, 3000);
+			$('.paper').on('touchstart', function(e){
+				down = true
+				$(this).addClass('movepaper')
+				current = $(this).attr('class').split('paper_')[1].split(' ')[0]
+				orgX = e.originalEvent.touches[0].pageX;
+				orgY = e.originalEvent.touches[0].pageY;
+			})
+			$('body').on('touchmove', function(e){
+				if(down){
+					newX = e.originalEvent.touches[0].pageX;
+					newY = e.originalEvent.touches[0].pageY;
+					console.log(orgX - newX)
+					$('.paper_'+current).css({'margin-right':(orgX - newX)+'px'})
+					$('.paper_'+current).css({'margin-top':(newY - orgY)+'px'})
+				}
+			})
+			$('body').on('touchend', function(e){
+				var ran = Math.floor(Math.random()*6)+1
+				$('.talk_'+ran).show()
+				setTimeout(function(){
+					$('.talk_'+ran).fadeOut(200)
+				},300)
+				$('.movepaper').removeClass('movepaper')
+				$('.paper').css({'margin-right':0})
+				$('.paper').css({'margin-top':0})
+				down = false
+			})
+	})
+</script>
+<style type="text/css">
+	body{
+		background-color: black
+	}
+	.paper{
+		box-shadow: 0vh 0vh 2vh rgb(124, 124, 124);
+		width: 80vw;
+		position: fixed;
+		transition: 0.5s cubic-bezier(0,.78,.61,1.36)
+	}
+	.movepaper{
+		transition: 0s
+	}
+	body{
+		overflow-y: scroll;
+	}
+	.talk{
+		display: none;
+		pointer-events: none;
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 10000000
+	}
+</style>
+</head>
+<body id="content">
+	<img class="talk talk_1" src="talk_paper/Untitled-5-01.png">
+	<img class="talk talk_2" src="talk_paper/Untitled-5-02.png">
+	<img class="talk talk_3" src="talk_paper/Untitled-5-03.png">
+	<img class="talk talk_4" src="talk_paper/Untitled-5-04.png">
+	<img class="talk talk_5" src="talk_paper/Untitled-5-05.png">
+	<img class="talk talk_6" src="talk_paper/Untitled-5-06.png">
+	<img class="paper paper_1" src="talk_paper/paper-01.png" style="right: 0vw; top: 0vh;">
+	<img class="paper paper_2" src="talk_paper/paper-02.png" style="right: 20vw; top: 10vh;">
+	<img class="paper paper_3" src="talk_paper/paper-03.png" style="right: -30vw; top: 20vh;">
+	<img class="paper paper_4" src="talk_paper/paper-04.png" style="right: -20vw; top: 30vh;">
+	<img class="paper paper_5" src="talk_paper/paper-05.png" style="right: 10vw; top: 40vh;">
+	<img class="paper paper_6" src="talk_paper/paper-06.png" style="right: -00vw; top: 50vh;">
+
+	<img class="paper paper_7" src="talk_paper/paper-07.png" style="right: -60vw; top: 40vh;">
+	<img class="paper paper_8" src="talk_paper/paper-08.png" style="right: -50vw; top: 50vh;">
+	<img class="paper paper_9" src="talk_paper/paper-09.png" style="right: 20vw; top: 60vh;">
+	<img class="paper paper_10" src="talk_paper/paper-10.png" style="right: -30vw; top: 70vh;">
+	<img class="paper paper_11" src="talk_paper/paper-11.png" style="right: -20vw; top: 80vh;">
+
+</body>
+</head>
