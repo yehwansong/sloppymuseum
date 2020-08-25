@@ -7,7 +7,7 @@ var data = [
             미술관 곳곳에 숨겨진 ‘#FANTASY’ QR코드를 찾아 접속해 보세요!</div>\
         </div>\
         <div class='artwork_wrapper f_ss'>\
-            <img class='artwork_img' src='artworkimg/img-02.png'>\
+            <img class='artwork_img' src='new/img-02.png'>\
             <!-- //작품 -->\
             <div class='artwork_title info_h_1'>\
             [복도_1]김가람,&lt;#FANTASY&gt;,2020\
@@ -94,7 +94,7 @@ var data = [
              </div>\
          </div>\
          <div class='artwork_wrapper f_ss'>\
-            <img class='artwork_img' src='artworkimg/img-03.png'>\
+            <img class='artwork_img' src='new/img-03.png'>\
              <!-- //작품 -->\
              <div class='artwork_title info_1'>\
              [1]유화수,&lt;워킹 홀리데이 - 보이지 않는 일 #1~4&gt;,2017\
@@ -141,7 +141,7 @@ var data = [
             </div>\
         </div>\
         <div class='program_wrapper f_s'>\
-            <img class='artwork_img' src='artworkimg/img-04.png'>\
+            <img class='artwork_img' src='new/img-04.png'>\
             <div class='program_title'>\
                 『미술관에 놓인 배움의 식탁: 예술가의 런치박스 레시피』 (2013-2019)\
             </div>\
@@ -150,7 +150,7 @@ var data = [
             </div>\
             <div class='program_p'>\
             </div>\
-            <img class='artwork_img' src='artworkimg/img-05.png'>\
+            <img class='artwork_img' src='new/img-05.png'>\
             <div class='program_title'>\
                 『SeMA BLUE 2014 오작동 라이브러리』 (2014) <‘오작동 스터디 그룹’ 교육 결과물>\
             </div>\
@@ -159,7 +159,7 @@ var data = [
             </div>\
             <div class='program_p'>\
             </div>\
-            <img class='artwork_img' src='artworkimg/img-06.png'>\
+            <img class='artwork_img' src='new/img-06.png'>\
             <div class='program_title'>\
                 『시민 큐레이터』 (2015~2019)\
             </div>\
@@ -168,7 +168,7 @@ var data = [
             </div>\
             <div class='program_p'>\
             </div>\
-            <img class='artwork_img' src='artworkimg/img-07.png'>\
+            <img class='artwork_img' src='new/img-07.png'>\
             <div class='program_title'>\
                 『파격! 노팁 노옵션 남서울미술관+지역투어』 (2017)\
             </div>\
@@ -177,7 +177,7 @@ var data = [
             </div>\
             <div class='program_p'>\
             </div>\
-            <img class='artwork_img' src='artworkimg/img-08.png'>\
+            <img class='artwork_img' src='new/img-08.png'>\
             <div class='program_title'>\
                 『언러닝, 뮤지엄』 (2019)\
             </div>\
@@ -199,7 +199,7 @@ var data = [
             복도에 놓인 조각은 연필로 만들어졌어요. 연필은 나의 생각을 표현하고 전달하는 기본적인 도구예요. 표현하고, 보고, 감상하고 다시 해석하는 보다 자유로운 시간을 가져보세요.</div>\
         </div>\
          <div class='artwork_wrapper f_ss'>\
-            <img class='artwork_img' src='artworkimg/img-10.png'>\
+            <img class='artwork_img' src='new/img-10.png'>\
              <div class='artwork_title info_h_2'>\
              [복도_2]김석,&lt;미메시스풍경 - 호모사피엔스 사피엔스&gt;,2016\
              </div>\
@@ -216,7 +216,7 @@ var data = [
              </div>\
          </div>\
          <div class='place_wrapper f_s'>\
-            <img class='artwork_img' src='artworkimg/img-09.png'>\
+            <img class='artwork_img' src='new/img-09.png'>\
              <div class='place_title place_gd_title'>\
              계단\
              </div>\
@@ -255,7 +255,7 @@ var data = [
 </div>\
         </div>\
          <div class='place_wrapper f_s'>\
-            <img class='artwork_img' src='artworkimg/img-12.png'>\
+            <img class='artwork_img' src='new/img-12.png'>\
              <div class='place_title place_dr_title'>\
              다락\
              </div>\
@@ -271,7 +271,7 @@ var data = [
              </div> \
          </div>\
          <div class='artwork_wrapper f_ss'>\
-            <img class='artwork_img' src='artworkimg/img-11.png'>\
+            <img class='artwork_img' src='new/img-11.png'>\
              <div class='artwork_title info_7_2'>\
              [7_2]이종건,&lt;#1. 어느 무대&gt;,2019\
              </div>\
@@ -329,7 +329,7 @@ var data = [
             </div>\
         </div>\
          <div class='artwork_wrapper f_ss'>\
-            <img class='artwork_img' src='artworkimg/img-13.png'>\
+            <img class='artwork_img' src='new/img-13.png'>\
              <div class='artwork_title info_1_1'>\
             [1_1]로와정,&lt;좋은 대답&gt;,2015\
              </div>\
@@ -409,7 +409,7 @@ var data = [
              </div>\
          </div>"],
          ['\
-         <img class="artwork_img" src="artworkimg/img-14.png">\
+         <img class="artwork_img" src="new/img-14.png">\
          <div class="f_ss">이우성,<오늘 밤 많은 것이 결정된다>, 2017<br>\
 			천에 아크릴릭 과슈, 젯소, 210×210cm,<br>\
 			SeMA 소장품 관리번호 2018-071<br></div>\
@@ -843,7 +843,7 @@ $('.title').on('touchstart',function(){
 		}
             $('.main').show()
         console.log(pos)
-		$('.info').html('<div class="close"></div><div class="main"><img src="artworkimg/new/single-'+pos+'.png"></div>'+data[selected])
+		$('.info').html('<div class="close"></div><div class="main"><img src="new/single-'+pos+'.png"></div>'+data[selected])
 		$('.info').find('.info_'+pos).clone().addClass('f_ss').insertAfter($('.main').find('img'))
         $('<span class="sub">'+ $(".info").find(".info_title").html() +' > '+ $(".artwork_title").html().split(']')[1]+'</span>').insertAfter($('.main'))
         if(pos === '7_1'){
@@ -862,7 +862,7 @@ $('.place').on('touchstart',function(){
 		$('.info').empty()
 		var pos = $(this).attr('class').split('single_')[1].split(' ')[0]
 		console.log('updated------')
-		$('.info').html('<div class="close"></div><div class="main"><img src="artworkimg/new/single-'+pos+'.png"></div>'+data[selected])
+		$('.info').html('<div class="close"></div><div class="main"><img src="new/single-'+pos+'.png"></div>'+data[selected])
 		$('.info').find('.place_'+pos+'_des').clone().insertAfter($('.main').find('img'))
 		$('.info').find('.place_'+pos+'_title').clone().insertAfter($('.main').find('img'))
         $('<span class="sub">'+ $(".info").find(".info_title").html() +' > '+ $(".place_title").html()+'</span>').insertAfter($('.main'))
@@ -880,7 +880,7 @@ $('.program').on('touchstart',function(){
         $('.info').empty()
         var pos = $(this).attr('class').split('single_')[1].split(' ')[0]
         console.log('updated------')
-        $('.info').html('<div class="close"></div><div class="main"><img src="artworkimg/new/single-'+pos+'.png"></div>'+data[selected])
+        $('.info').html('<div class="close"></div><div class="main"><img src="new/single-'+pos+'.png"></div>'+data[selected])
         $('.info').find('.program_'+pos+'_p').clone().insertAfter($('.main').find('img'))
         $('.info').find('.program_'+pos+'_des').clone().insertAfter($('.main').find('img'))
         $('.info').find('.program_'+pos+'_title').clone().insertAfter($('.main').find('img'))
