@@ -355,7 +355,7 @@ var data = [
 			SeMA 소장품 관리번호 2008-114\
              </div>\
              <div class='artwork_title info_2_3'>\
-			[2_3]이우성,&lt;첨벙첨벙&gt;,2017\
+			[2_3]이우성,&lt;첨벙 첨벙&gt;,2017\
              </div>\
              <div class='artwork_format'>\
 			천에 아크릴릭 과슈, 210x210cm, \
