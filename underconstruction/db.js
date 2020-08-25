@@ -846,6 +846,9 @@ $(document).ready(function(){
 	$('.room').on('touchstart',function(e){
   		e.preventDefault();
 	})
+    $('.wholemap').on('touchstart',function(e){
+        $('.click').hide()
+    })
 	$('.arrow_up').on('touchstart',function(){
   // e.preventDefault();
 		down = true
